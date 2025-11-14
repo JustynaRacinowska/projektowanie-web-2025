@@ -62,18 +62,22 @@ class Book(models.Model):
     
     
 class Osoba(models.Model):
-        PLEC_WYBOR = (
-            ("K", "kobieta"),
-            ("M", "mezczyzna"),
-            ("I", "inna")
-        )
-        imie = models.CharField(max_length = 50, null = False, blank = False)
-        nazwisko = models.CharField(max_length = 100, null = False, blank = False)
-        plec = models.IntegerField(choices = PLCIE.choices, default = PLCIE.choices[2][0])
-        stanowisko = models.ForeignKey('Stanowisko', on_delete = models.CASCADE)
-        data_dodania = models.DateField(auto_now_add = True, editable = False)
+    PLEC_WYBOR = (
+        ("K", "kobieta"),
+        ("M", "mezczyzna"),
+        ("I", "inna")
+    )
+    imie = models.CharField(max_length = 50, null = False, blank = False)
+    nazwisko = models.CharField(max_length = 100, null = False, blank = False)
+    plec = models.IntegerField(choices = PLCIE.choices, default = PLCIE.choices[2][0])
+    stanowisko = models.ForeignKey('Stanowisko', on_delete = models.CASCADE)
+    data_dodania = models.DateField(auto_now_add = True, editable = False)
 
+    def __str__(self):
+        return f'osoba:{self.imie}{self.nazwisko}'
 
+    class Meta:
+        ordering = ["nazwisko"]
 
 class Stanowisko(models.Model):
         nazwa  = models.CharField(max_length = 70, null = False, blank = False)
